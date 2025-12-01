@@ -4,39 +4,42 @@ export const XASH_DOWNLOADS: DownloadItem[] = [
   {
     id: '1',
     title: 'Xash3D FWGS',
-    version: '1.19.1',
+    version: '0.19.1',
     url: 'https://www.mediafire.com/file/97ew8p9rkwui7mu/1.19.1.apk/file',
     type: 'xash',
   },
   {
     id: '2',
     title: 'Xash3D FWGS',
-    version: '1.19.2',
+    version: '0.19.2',
     url: 'https://www.mediafire.com/file/gber2xv2s7j53f3/1.19.2.apk/file',
     type: 'xash',
   },
   {
     id: '3',
     title: 'Xash3D FWGS',
-    version: '1.19.3',
+    version: '0.19.3',
     url: 'https://www.mediafire.com/file/yj016i55n1pla5m/1.19.3.apk/file',
     type: 'xash',
   },
   {
     id: '4',
     title: 'Xash3D FWGS',
-    version: '1.19.4',
+    version: '0.19.4',
     url: 'https://www.mediafire.com/file/ul0vv3rwnswlxrr/1.19.4.apk/file?dkey=ul0vv3rwnswlxrr',
     type: 'xash',
   },
+];
+
+export const TORNADO_DOWNLOADS: DownloadItem[] = [
   {
-    id: '5',
-    title: 'Xash3D (New Version)',
-    version: 'New',
+    id: 'tornado-1',
+    title: 'Xash3D Tornado',
+    version: 'Release',
     url: 'https://www.mediafire.com/file/taubcv4u95sxsti/base_%252814%2529.apk/file',
-    type: 'xash',
-    description: 'Experimental / Base Build'
-  },
+    type: 'tornado',
+    description: 'Release / Stable'
+  }
 ];
 
 export const OTHER_DOWNLOADS: DownloadItem[] = [
