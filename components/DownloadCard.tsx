@@ -9,12 +9,16 @@ interface DownloadCardProps {
 export const DownloadCard: React.FC<DownloadCardProps> = ({ item }) => {
   const isXash = item.type === 'xash';
   const isTornado = item.type === 'tornado';
-  
+
+  // safe checks
+  const titleSafe = (item.title ?? '').toString();
+  const versionSafe = String(item.version ?? '');
+
   // Determine icon based on type
-  const Icon = () => {
+  const Icon = (): JSX.Element => {
     if (isTornado) return <Rocket size={22} />;
     if (isXash) return <Box size={22} />;
-    if (item.title.includes('Steam')) return <Settings size={22} />;
+    if (titleSafe.includes('Steam')) return <Settings size={22} />;
     return <Gamepad2 size={22} />;
   };
 
@@ -37,18 +41,20 @@ export const DownloadCard: React.FC<DownloadCardProps> = ({ item }) => {
     return 'bg-blue-500/10 border-blue-500/20 text-blue-400';
   };
 
+  const versionLabel = versionSafe.toLowerCase().includes('release') ? item.version : `v${item.version}`;
+
   return (
     <a
       href={item.url}
       target="_blank"
-      rel="noopener noreferrer"
-      className="group relative flex items-center p-4 rounded-2xl bg-zinc-900/40 backdrop-blur-md border border-white/5 hover:border-white/10 transition-all duration-300 hover:bg-zinc-800/60 overflow-hidden"
+      rel="noreferrer"
+      className="group relative overflow-hidden block p-4 rounded-xl bg-zinc-900/50 border border-white/5 hover:shadow-lg transition-shadow duration-300"
     >
       {/* Hover Gradient Glow */}
-      <div 
-        className={`absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-500 bg-gradient-to-r ${getGradient()}`} 
+      <div
+        className={`absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-500 bg-gradient-to-r ${getGradient()}`}
       />
-      
+
       {/* Icon Container */}
       <div className={`
         relative flex-shrink-0 w-12 h-12 flex items-center justify-center rounded-xl mr-5
@@ -59,29 +65,29 @@ export const DownloadCard: React.FC<DownloadCardProps> = ({ item }) => {
       </div>
 
       {/* Content */}
-      <div className="flex-grow min-w-0 relative z-10">
-        <div className="flex items-center gap-2 mb-1">
-          <h3 className="text-zinc-100 font-bold text-lg tracking-tight truncate group-hover:text-white transition-colors">
-            {item.title}
-          </h3>
-          <span className={`
-            px-2 py-0.5 rounded-md text-[10px] font-bold uppercase tracking-wider border
-            ${getBadgeStyles()}
-          `}>
-            {item.version.toLowerCase().includes('release') ? item.version : `v${item.version}`}
-          </span>
-        </div>
-        
-        {item.description && (
-          <p className="text-sm text-zinc-500 group-hover:text-zinc-400 transition-colors truncate">
-            {item.description}
-          </p>
-        )}
-      </div>
+      <div className="flex items-center">
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center gap-3">
+            <h3 className="text-sm font-bold leading-none">
+              {titleSafe}
+            </h3>
+            <span className={`
+              px-2 py-0.5 rounded-md text-[10px] font-bold uppercase tracking-wider border
+              ${getBadgeStyles()}
+            `}>
+              {versionLabel}
+            </span>
+          </div>
 
-      {/* Action Area */}
-      <div className="ml-4 flex items-center justify-center w-10 h-10 rounded-full bg-white/5 text-zinc-400 group-hover:bg-white/10 group-hover:text-white transition-all duration-300 relative z-10">
-        {isXash || isTornado ? <Download size={18} /> : <ChevronRight size={18} />}
+          {item.description && (
+            <p className="text-xs text-zinc-400 mt-1 truncate">{item.description}</p>
+          )}
+        </div>
+
+        {/* Action Area */}
+        <div className="ml-4 flex items-center justify-center w-10 h-10 rounded-full bg-white/5 text-zinc-400 group-hover:bg-white/10 group-hover:text-white transition-all duration-300 relative z-10">
+          {isXash || isTornado ? <Download size={18} /> : <ChevronRight size={18} />}
+        </div>
       </div>
     </a>
   );
