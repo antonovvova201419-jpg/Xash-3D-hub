@@ -29,6 +29,14 @@ export const XASH_DOWNLOADS: DownloadItem[] = [
     url: 'https://www.mediafire.com/file/ul0vv3rwnswlxrr/1.19.4.apk/file?dkey=ul0vv3rwnswlxrr',
     type: 'xash',
   },
+  {
+    id: '5',
+    title: 'Xash3D (New Version)',
+    version: 'New',
+    url: 'https://www.mediafire.com/file/taubcv4u95sxsti/base_%252814%2529.apk/file',
+    type: 'xash',
+    description: 'Experimental / Base Build'
+  },
 ];
 
 export const OTHER_DOWNLOADS: DownloadItem[] = [
