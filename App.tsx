@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { TelegramModal } from './components/TelegramModal';
 import { DownloadCard } from './components/DownloadCard';
 import { XASH_DOWNLOADS, OTHER_DOWNLOADS, TORNADO_DOWNLOADS } from './constants';
-import { Gamepad2, Layers, Zap, Rocket } from 'lucide-react';
+import { Gamepad2, Layers, Zap, Rocket, BookOpen, ExternalLink, FolderOpen, FileCheck } from 'lucide-react';
 
-type Tab = 'fwgs' | 'tornado' | 'other';
+type Tab = 'fwgs' | 'tornado' | 'other' | 'guide';
 
 const App: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -24,6 +24,7 @@ const App: React.FC = () => {
         <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-orange-600/10 rounded-full blur-[120px]" />
         <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-blue-600/10 rounded-full blur-[120px]" />
         <div className={`absolute top-[40%] left-[50%] -translate-x-1/2 w-[30%] h-[30%] bg-purple-600/10 rounded-full blur-[120px] transition-opacity duration-1000 ${activeTab === 'tornado' ? 'opacity-100' : 'opacity-0'}`} />
+        <div className={`absolute bottom-[10%] left-[20%] w-[25%] h-[25%] bg-green-600/10 rounded-full blur-[120px] transition-opacity duration-1000 ${activeTab === 'guide' ? 'opacity-100' : 'opacity-0'}`} />
       </div>
 
       <TelegramModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
@@ -44,10 +45,10 @@ const App: React.FC = () => {
           </p>
 
           {/* Tab Navigation */}
-          <div className="inline-flex p-1 bg-zinc-900/60 backdrop-blur-md rounded-xl border border-white/5 ring-1 ring-white/5">
+          <div className="flex flex-wrap justify-center gap-2 p-1 bg-zinc-900/60 backdrop-blur-md rounded-xl border border-white/5 ring-1 ring-white/5 max-w-fit mx-auto">
             <button
               onClick={() => setActiveTab('fwgs')}
-              className={`flex items-center gap-2 px-6 py-2.5 rounded-lg text-sm font-bold transition-all duration-300 ${
+              className={`flex items-center gap-2 px-4 md:px-6 py-2.5 rounded-lg text-sm font-bold transition-all duration-300 ${
                 activeTab === 'fwgs' 
                   ? 'bg-zinc-800 text-white shadow-lg ring-1 ring-white/10' 
                   : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/50'
@@ -58,7 +59,7 @@ const App: React.FC = () => {
             </button>
             <button
               onClick={() => setActiveTab('tornado')}
-              className={`flex items-center gap-2 px-6 py-2.5 rounded-lg text-sm font-bold transition-all duration-300 ${
+              className={`flex items-center gap-2 px-4 md:px-6 py-2.5 rounded-lg text-sm font-bold transition-all duration-300 ${
                 activeTab === 'tornado' 
                   ? 'bg-zinc-800 text-white shadow-lg ring-1 ring-white/10' 
                   : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/50'
@@ -69,7 +70,7 @@ const App: React.FC = () => {
             </button>
             <button
               onClick={() => setActiveTab('other')}
-              className={`flex items-center gap-2 px-6 py-2.5 rounded-lg text-sm font-bold transition-all duration-300 ${
+              className={`flex items-center gap-2 px-4 md:px-6 py-2.5 rounded-lg text-sm font-bold transition-all duration-300 ${
                 activeTab === 'other' 
                   ? 'bg-zinc-800 text-white shadow-lg ring-1 ring-white/10' 
                   : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/50'
@@ -77,6 +78,17 @@ const App: React.FC = () => {
             >
               <Layers size={16} className={activeTab === 'other' ? 'text-blue-400' : ''} />
               Files
+            </button>
+            <button
+              onClick={() => setActiveTab('guide')}
+              className={`flex items-center gap-2 px-4 md:px-6 py-2.5 rounded-lg text-sm font-bold transition-all duration-300 ${
+                activeTab === 'guide' 
+                  ? 'bg-zinc-800 text-white shadow-lg ring-1 ring-white/10' 
+                  : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/50'
+              }`}
+            >
+              <BookOpen size={16} className={activeTab === 'guide' ? 'text-green-400' : ''} />
+              Guide
             </button>
           </div>
         </div>
@@ -132,6 +144,99 @@ const App: React.FC = () => {
               {OTHER_DOWNLOADS.map((item) => (
                 <DownloadCard key={item.id} item={item} />
               ))}
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'guide' && (
+          <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
+            <div className="flex items-center gap-3 px-2 mb-4">
+               <div className="p-2 bg-green-500/10 rounded-lg">
+                <BookOpen className="text-green-500 w-5 h-5" />
+              </div>
+              <h2 className="text-2xl font-bold text-white tracking-wide">Инструкция</h2>
+            </div>
+
+            {/* Resource Link */}
+            <a 
+              href="https://gamebanana.com/games/4254" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="group block p-6 rounded-2xl bg-gradient-to-br from-zinc-800/80 to-zinc-900/80 border border-white/5 hover:border-green-500/30 transition-all duration-300 shadow-xl"
+            >
+              <div className="flex items-center justify-between">
+                <div>
+                  <h3 className="text-xl font-bold text-green-400 mb-1 group-hover:text-green-300">Где скачать моды?</h3>
+                  <p className="text-zinc-400 text-sm">Рекомендуем GameBanana - крупнейший архив модов для CS 1.6</p>
+                </div>
+                <ExternalLink className="text-zinc-500 group-hover:text-green-400 transition-colors" size={24} />
+              </div>
+            </a>
+
+            {/* Steps */}
+            <div className="space-y-4">
+              
+              {/* Path Info */}
+              <div className="p-4 rounded-xl bg-zinc-900/40 border border-white/5 flex items-start gap-4">
+                <div className="p-2 bg-zinc-800 rounded-lg shrink-0">
+                  <FolderOpen size={20} className="text-zinc-400" />
+                </div>
+                <div>
+                  <h4 className="font-bold text-zinc-200 text-sm mb-1">Корневая папка</h4>
+                  <code className="text-xs bg-black/40 px-2 py-1 rounded text-orange-400 font-mono break-all">
+                    /storage/emulated/0/xash/
+                  </code>
+                </div>
+              </div>
+
+              {/* Weapons */}
+              <div className="p-5 rounded-xl bg-zinc-900/40 border border-white/5 hover:bg-zinc-800/40 transition-colors">
+                <div className="flex items-center gap-3 mb-3">
+                  <span className="w-6 h-6 rounded-full bg-green-500/10 text-green-400 flex items-center justify-center text-xs font-bold border border-green-500/20">1</span>
+                  <h3 className="font-bold text-zinc-100">Оружие (Weapon Models)</h3>
+                </div>
+                <div className="space-y-2 pl-9">
+                  <p className="text-sm text-zinc-400">Файлы с расширением <span className="text-zinc-200">.mdl</span> (например, <span className="italic">v_ak47.mdl</span>)</p>
+                  <div className="text-xs flex items-center gap-2 text-zinc-500">
+                    <FileCheck size={14} />
+                    <span>Кидать в:</span>
+                    <code className="bg-black/30 px-1.5 py-0.5 rounded text-zinc-300">xash/cstrike/models/</code>
+                  </div>
+                </div>
+              </div>
+
+              {/* Players */}
+              <div className="p-5 rounded-xl bg-zinc-900/40 border border-white/5 hover:bg-zinc-800/40 transition-colors">
+                <div className="flex items-center gap-3 mb-3">
+                  <span className="w-6 h-6 rounded-full bg-green-500/10 text-green-400 flex items-center justify-center text-xs font-bold border border-green-500/20">2</span>
+                  <h3 className="font-bold text-zinc-100">Игроки (Player Models)</h3>
+                </div>
+                <div className="space-y-2 pl-9">
+                  <p className="text-sm text-zinc-400">Папки с именем персонажа (например, <span className="italic">arctic</span>, <span className="italic">sas</span>)</p>
+                  <div className="text-xs flex items-center gap-2 text-zinc-500">
+                    <FileCheck size={14} />
+                    <span>Кидать в:</span>
+                    <code className="bg-black/30 px-1.5 py-0.5 rounded text-zinc-300">xash/cstrike/models/player/</code>
+                  </div>
+                </div>
+              </div>
+
+              {/* Textures & Sprays */}
+              <div className="p-5 rounded-xl bg-zinc-900/40 border border-white/5 hover:bg-zinc-800/40 transition-colors">
+                <div className="flex items-center gap-3 mb-3">
+                  <span className="w-6 h-6 rounded-full bg-green-500/10 text-green-400 flex items-center justify-center text-xs font-bold border border-green-500/20">3</span>
+                  <h3 className="font-bold text-zinc-100">Спреи и Текстуры</h3>
+                </div>
+                <div className="space-y-2 pl-9">
+                  <p className="text-sm text-zinc-400">Файл спрея <span className="text-zinc-200">tempdecal.wad</span> или текстуры <span className="text-zinc-200">.wad</span></p>
+                  <div className="text-xs flex items-center gap-2 text-zinc-500">
+                    <FileCheck size={14} />
+                    <span>Кидать в:</span>
+                    <code className="bg-black/30 px-1.5 py-0.5 rounded text-zinc-300">xash/cstrike/</code>
+                  </div>
+                </div>
+              </div>
+
             </div>
           </div>
         )}
