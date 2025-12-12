@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { TelegramModal } from './components/TelegramModal';
+import { ClosureModal } from './components/ClosureModal';
 import { DownloadCard } from './components/DownloadCard';
 import { XASH_DOWNLOADS, OTHER_DOWNLOADS, TORNADO_DOWNLOADS } from './constants';
 import { Gamepad2, Layers, Zap, Rocket, BookOpen, ExternalLink, FolderOpen, FileCheck } from 'lucide-react';
@@ -8,9 +9,11 @@ type Tab = 'fwgs' | 'tornado' | 'other' | 'guide';
 
 const App: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isClosureModalOpen, setIsClosureModalOpen] = useState(true);
   const [activeTab, setActiveTab] = useState<Tab>('fwgs');
 
   useEffect(() => {
+    // Show telegram modal after a short delay, but closure modal is immediate
     const timer = setTimeout(() => {
       setIsModalOpen(true);
     }, 500);
@@ -27,6 +30,7 @@ const App: React.FC = () => {
         <div className={`absolute bottom-[10%] left-[20%] w-[25%] h-[25%] bg-emerald-600/10 rounded-full blur-[120px] transition-opacity duration-1000 ${activeTab === 'guide' ? 'opacity-100' : 'opacity-0'}`} />
       </div>
 
+      <ClosureModal isOpen={isClosureModalOpen} onClose={() => setIsClosureModalOpen(false)} />
       <TelegramModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
 
       {/* Hero Section */}
